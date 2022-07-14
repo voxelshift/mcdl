@@ -1,5 +1,6 @@
-# Ignore built binary
+# Ignore built binaries
 /mcdl
+/dist/
 
 # Ignore jar files
 *.jar

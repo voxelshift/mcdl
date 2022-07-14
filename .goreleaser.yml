@@ -1,15 +1,16 @@
 project_name: mcdl
+
 builds:
   - goos:
       - linux
+    ldflags:
+      - -X util.Version={{ .Version }}
+      - -X main.date={{ .CommitDate }}
+    mod_timestamp: '{{ .CommitTimestamp }}'
 
 dockers:
   - image_templates:
-      - "docker.io/devmattrick/{{.ProjectName}}:{{ .Tag }}"
-      - "docker.io/devmattrick/{{.ProjectName}}:{{ .Major }}.{{ .Minor }}"
-      - "docker.io/devmattrick/{{.ProjectName}}:{{ .Major }}"
-      - "docker.io/devmattrick/{{.ProjectName}}:latest"
-      - "ghcr.io/devmattrick/{{.ProjectName}}:{{ .Tag }}"
-      - "ghcr.io/devmattrick/{{.ProjectName}}:{{ .Major }}.{{ .Minor }}"
-      - "ghcr.io/devmattrick/{{.ProjectName}}:{{ .Major }}"
-      - "ghcr.io/devmattrick/{{.ProjectName}}:latest"
+      - "ghcr.io/voxelshift/{{.ProjectName}}:{{ .Tag }}"
+      - "ghcr.io/voxelshift/{{.ProjectName}}:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/voxelshift/{{.ProjectName}}:{{ .Major }}"
+      - "ghcr.io/voxelshift/{{.ProjectName}}:latest"
