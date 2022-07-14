@@ -7,7 +7,7 @@ var GetInstallerVersionsUrl = "https://meta.fabricmc.net/v2/versions/installer"
 type InstallerVersions []InstallerVersion
 
 type InstallerVersion struct {
-	Name   string
+	Name   string `json:"version"`
 	Build  int
 	Stable bool
 }

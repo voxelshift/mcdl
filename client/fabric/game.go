@@ -5,7 +5,7 @@ import "github.com/voxelshift/mcdl/util"
 var GetGameVersionsUrl = "https://meta.fabricmc.net/v2/versions/game"
 
 type GameVersion struct {
-	Name   string
+	Name   string `json:"version"`
 	Stable bool
 }
 

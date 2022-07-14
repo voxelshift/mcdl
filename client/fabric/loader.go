@@ -11,7 +11,7 @@ var GetLoaderVersionsUrl = "https://meta.fabricmc.net/v2/versions/loader/%s"
 type LoaderVersions []LoaderVersion
 
 type LoaderVersion struct {
-	Name   string
+	Name   string `json:"version"`
 	Build  int
 	Stable bool
 }
