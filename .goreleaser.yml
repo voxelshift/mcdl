@@ -1,0 +1,15 @@
+project_name: mcdl
+builds:
+  - goos:
+      - linux
+
+dockers:
+  - image_templates:
+      - "docker.io/devmattrick/{{.ProjectName}}:{{ .Tag }}"
+      - "docker.io/devmattrick/{{.ProjectName}}:{{ .Major }}.{{ .Minor }}"
+      - "docker.io/devmattrick/{{.ProjectName}}:{{ .Major }}"
+      - "docker.io/devmattrick/{{.ProjectName}}:latest"
+      - "ghcr.io/devmattrick/{{.ProjectName}}:{{ .Tag }}"
+      - "ghcr.io/devmattrick/{{.ProjectName}}:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/devmattrick/{{.ProjectName}}:{{ .Major }}"
+      - "ghcr.io/devmattrick/{{.ProjectName}}:latest"

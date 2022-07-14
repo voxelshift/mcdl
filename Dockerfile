@@ -1,0 +1,8 @@
+ARG INSTALL_PATH=/opt/mcdl
+
+FROM scratch
+
+COPY ./mcdl $INSTALL_PATH
+ENV PATH="$INSTALL_PATH:$PATH"
+
+CMD ["mcdl"]
