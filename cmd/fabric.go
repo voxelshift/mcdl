@@ -43,7 +43,7 @@ func run(cmd *cobra.Command, args []string) {
 		Output:           output,
 	})
 	if err != nil {
-		log.Panicf("failed to download fabric server")
+		log.Errorf("%v", err)
 		os.Exit(1)
 	}
 	log.Infof("successfully downloaded %s", *filename)

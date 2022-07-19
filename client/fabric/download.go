@@ -1,6 +1,7 @@
 package fabric
 
 import (
+	"errors"
 	"fmt"
 
 	log "github.com/sirupsen/logrus"
@@ -8,6 +9,12 @@ import (
 )
 
 var DownloadFabricUrl = "https://meta.fabricmc.net//v2/versions/loader/%s/%s/%s/server/jar"
+
+var (
+	errInvalidGameVersion      = errors.New("game version not found")
+	errInvalidLoaderVersion    = errors.New("loader version not found")
+	errInvalidInstallerVersion = errors.New("installer version not found")
+)
 
 type DownloadFabricOptions struct {
 	GameVersion      string
@@ -21,26 +28,35 @@ func DownloadFabric(options DownloadFabricOptions) (*string, error) {
 	if err != nil {
 		return nil, err
 	}
-	gameVersion := gameVersions.GetVersion(options.GameVersion).Name
+	gameVersion := gameVersions.GetVersion(options.GameVersion)
+	if gameVersion == nil {
+		return nil, errInvalidGameVersion
+	}
 
-	loaderVersions, err := GetLoaderVersions(gameVersion)
+	loaderVersions, err := GetLoaderVersions(gameVersion.Name)
 	if err != nil {
 		return nil, err
 	}
-	loaderVersion := loaderVersions.GetVersion(options.LoaderVersion).Name
+	loaderVersion := loaderVersions.GetVersion(options.LoaderVersion)
+	if loaderVersion == nil {
+		return nil, errInvalidLoaderVersion
+	}
 
 	installerVersions, err := GetInstallerVersions()
 	if err != nil {
 		return nil, err
 	}
-	installerVersion := installerVersions.GetVersion(options.InstallerVersion).Name
+	installerVersion := installerVersions.GetVersion(options.InstallerVersion)
+	if installerVersion == nil {
+		return nil, errInvalidInstallerVersion
+	}
 
 	output := &options.Output
 	if *output == "" {
 		output = nil
 	}
 
-	log.Infof("downloading Fabric %s (loader: %s; installer: %s)", gameVersion, loaderVersion, installerVersion)
+	log.Infof("downloading Fabric %s (loader: %s; installer: %s)", gameVersion.Name, loaderVersion.Name, installerVersion.Name)
 
 	url := fmt.Sprintf(DownloadFabricUrl, gameVersion, loaderVersion, installerVersion)
 	return client.Download(url, output)
