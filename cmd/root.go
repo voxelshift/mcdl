@@ -30,7 +30,7 @@ func Execute() {
 
 func init() {
 	rootCmd.PersistentFlags().BoolP(debugFlag, "d", false, "show debug output")
-	rootCmd.PersistentFlags().BoolP(outputFlag, "O", false, "set the output file")
+	rootCmd.PersistentFlags().StringP(outputFlag, "O", "", "set the output file")
 
 	rootCmd.AddCommand(fabricCmd)
 }

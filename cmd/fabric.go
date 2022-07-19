@@ -30,10 +30,17 @@ func run(cmd *cobra.Command, args []string) {
 	var loaderVersion = util.UnwrapFlag(cmd.Flags().GetString(loaderFlag))
 	var installerVersion = util.UnwrapFlag(cmd.Flags().GetString(installerFlag))
 
+	var output, err = cmd.Flags().GetString(outputFlag)
+	if err != nil {
+		log.Debugf("failed to parse output flag: %v", err)
+		output = ""
+	}
+
 	filename, err := fabric.DownloadFabric(fabric.DownloadFabricOptions{
 		GameVersion:      gameVersion,
 		LoaderVersion:    loaderVersion,
 		InstallerVersion: installerVersion,
+		Output:           output,
 	})
 	if err != nil {
 		log.Panicf("failed to download fabric server")

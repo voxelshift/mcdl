@@ -3,6 +3,7 @@ package fabric
 import (
 	"fmt"
 
+	log "github.com/sirupsen/logrus"
 	"github.com/voxelshift/mcdl/client"
 )
 
@@ -12,7 +13,7 @@ type DownloadFabricOptions struct {
 	GameVersion      string
 	LoaderVersion    string
 	InstallerVersion string
-	Output           *string
+	Output           string
 }
 
 func DownloadFabric(options DownloadFabricOptions) (*string, error) {
@@ -34,6 +35,13 @@ func DownloadFabric(options DownloadFabricOptions) (*string, error) {
 	}
 	installerVersion := installerVersions.GetVersion(options.InstallerVersion).Name
 
+	output := &options.Output
+	if *output == "" {
+		output = nil
+	}
+
+	log.Infof("downloading Fabric %s (loader: %s; installer: %s)", gameVersion, loaderVersion, installerVersion)
+
 	url := fmt.Sprintf(DownloadFabricUrl, gameVersion, loaderVersion, installerVersion)
-	return client.Download(url, options.Output)
+	return client.Download(url, output)
 }
