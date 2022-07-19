@@ -58,6 +58,6 @@ func DownloadFabric(options DownloadFabricOptions) (*string, error) {
 
 	log.Infof("downloading Fabric %s (loader: %s; installer: %s)", gameVersion.Name, loaderVersion.Name, installerVersion.Name)
 
-	url := fmt.Sprintf(DownloadFabricUrl, gameVersion, loaderVersion, installerVersion)
+	url := fmt.Sprintf(DownloadFabricUrl, gameVersion.Name, loaderVersion.Name, installerVersion.Name)
 	return client.Download(url, output)
 }
