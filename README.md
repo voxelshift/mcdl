@@ -2,6 +2,28 @@
 
 mcdl is a simple cli tool to download various Minecraft server implementations from their official sources.
 
+## installation
+
+### docker
+
+mcdl has a Docker image hosted on GitHub Container Registry:
+
+```Dockerfile
+# You probably shouldn't use "latest" in production images since things may break after a major version bump.
+# Instead you can pin to a specific version.
+FROM ghcr.io/voxelshift/mcdl:latest
+
+RUN mcdl fabric 1.19
+```
+
+### binaries
+
+Linux binaries for mcdl are available on the [Releases](https://github.com/voxelshift/mcdl/releases/tag/0.0.1) page on
+GitHub. The goal is to eventually get mcdl on package repositories when it becomes more stable and featureful.
+
+Windows and Mac binaries aren't currently provided as I don't see there being much use but if there's enough demand for
+that they can always be added.
+
 ## projects
 
 ### fabric
