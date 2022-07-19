@@ -1,7 +1,6 @@
 ARG INSTALL_PATH=/opt/mcdl
 
-FROM scratch
-
+FROM alpine:3.16
 COPY ./mcdl $INSTALL_PATH
 ENV PATH="$INSTALL_PATH:$PATH"
 

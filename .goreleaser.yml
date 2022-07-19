@@ -3,6 +3,8 @@ project_name: mcdl
 builds:
   - goos:
       - linux
+    env:
+      - CGO_ENABLED=0
     ldflags:
       - -s -w -X github.com/voxelshift/mcdl/util.Version={{ .Version }}
       - -X main.date={{ .CommitDate }}
