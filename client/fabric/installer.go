@@ -1,6 +1,9 @@
 package fabric
 
-import "github.com/voxelshift/mcdl/util"
+import (
+	"github.com/voxelshift/mcdl/client"
+	"github.com/voxelshift/mcdl/util"
+)
 
 var GetInstallerVersionsUrl = "https://meta.fabricmc.net/v2/versions/installer"
 
@@ -14,7 +17,7 @@ type InstallerVersion struct {
 
 func GetInstallerVersions() (*InstallerVersions, error) {
 	resp := &InstallerVersions{}
-	err := util.GetJson(GetInstallerVersionsUrl, resp)
+	err := client.GetJson(GetInstallerVersionsUrl, resp)
 
 	return resp, err
 }
@@ -37,6 +40,14 @@ func (versions InstallerVersions) GetStable() *InstallerVersion {
 
 // Get the installer version that matches the passed string
 func (versions InstallerVersions) GetVersion(name string) *InstallerVersion {
+	if name == util.LatestVersion {
+		return versions.GetLatest()
+	}
+
+	if name == util.StableVersion {
+		return versions.GetStable()
+	}
+
 	for _, v := range versions {
 		if name == v.Name {
 			return &v

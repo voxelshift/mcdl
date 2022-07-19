@@ -4,7 +4,7 @@ builds:
   - goos:
       - linux
     ldflags:
-      - -X util.Version={{ .Version }}
+      - -s -w -X github.com/voxelshift/mcdl/util.Version={{ .Version }}
       - -X main.date={{ .CommitDate }}
     mod_timestamp: '{{ .CommitTimestamp }}'
 

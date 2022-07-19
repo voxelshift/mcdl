@@ -3,6 +3,7 @@ package fabric
 import (
 	"fmt"
 
+	"github.com/voxelshift/mcdl/client"
 	"github.com/voxelshift/mcdl/util"
 )
 
@@ -26,7 +27,7 @@ func GetLoaderVersions(gameVersion string) (*LoaderVersions, error) {
 	url := fmt.Sprintf(GetLoaderVersionsUrl, gameVersion)
 
 	resp := &[]GetLoaderVersionsResponse{}
-	err := util.GetJson(url, resp)
+	err := client.GetJson(url, resp)
 	if err != nil {
 		return nil, err
 	}
@@ -57,6 +58,14 @@ func (versions LoaderVersions) GetStable() *LoaderVersion {
 
 // Get the loader version that matches the passed string
 func (versions LoaderVersions) GetVersion(name string) *LoaderVersion {
+	if name == util.LatestVersion {
+		return versions.GetLatest()
+	}
+
+	if name == util.StableVersion {
+		return versions.GetStable()
+	}
+
 	for _, v := range versions {
 		if name == v.Name {
 			return &v
